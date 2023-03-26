@@ -79,6 +79,16 @@ app.get("/restaurants/:id/edit", (req, res) => {
         .then((restaurant) => res.render("edit", { restaurant }))
         .catch((error) => console.log(error))
 })
+app.get("/restaurants/:id/delete", (req, res) => {
+    //根據動態路由輸入的id，顯示可編輯的餐廳資訊
+    const id = req.params.id
+    return restaurantInfo
+        .findById(id)
+        .lean()
+        .then((restaurant) => res.render("delete", { restaurant }))
+        .catch((error) => console.log(error))
+})
+
 app.post("/restaurants/new", (req, res) => {
     return restaurantInfo
         .create({
@@ -113,6 +123,15 @@ app.post("/restaurants/:id/edit", (req, res) => {
             return restaurant.save()
         })
         .then(() => res.redirect(`/restaurants/${id}`))
+        .catch((error) => console.log(error))
+})
+app.post("/restaurants/:id/delete", (req, res) => {
+    //根據動態路由輸入的id，將該資料刪除並重新導向到index.hbs
+    const id = req.params.id
+    return restaurantInfo
+        .findById(id)
+        .then((restaurant) => restaurant.deleteOne())
+        .then(() => res.redirect("/"))
         .catch((error) => console.log(error))
 })
 
