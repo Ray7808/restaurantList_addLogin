@@ -42,8 +42,12 @@ app.get("/", (req, res) => {
 })
 app.get("/restaurants/:id", (req, res) => {
     //根據動態路由輸入的id，顯示對應的餐廳資訊
-    const showedRestaurantInfo = restaurantInfo.results.filter((restaurant) => restaurant.id === Number(req.params.id))
-    res.render("show", { restaurant: showedRestaurantInfo[0] })
+    const id = req.params.id
+    return restaurantInfo
+        .findById(id)
+        .lean()
+        .then((restaurant) => res.render("show", { restaurant }))
+        .catch((error) => console.log(error))
 })
 app.get("/search", (req, res) => {
     //藉由輸入的query string，查找對應的餐廳資訊(名字、英文名字跟類別)
