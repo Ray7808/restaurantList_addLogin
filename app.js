@@ -2,6 +2,7 @@
 const express = require("express")
 const exhbs = require("express-handlebars")
 const mongoose = require("mongoose")
+const bodyParser = require("body-parser")
 const restaurantInfo = require("./models/restaurantInfo")
 
 const app = express()
@@ -19,6 +20,9 @@ if (process.env.NODE_ENV !== "production") {
 
 //連線到mongoDB
 mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+
+//拿到瀏覽器回傳的資料
+app.use(bodyParser.urlencoded({ extended: true }))
 
 //db測試
 const db = mongoose.connection
@@ -61,8 +65,35 @@ app.get("/search", (req, res) => {
                 searchedText: keyword,
             })
         )
-    // searchedList = restaurantInfo.results.filter((restaurant) => restaurant.name.includes(keyword) || restaurant.name_en.toLowerCase().includes(keyword) || restaurant.category.includes(keyword))
-    // res.render("index", { restaurant: searchedList, searchedText: keyword })
+})
+app.get("/restaurants/:id/edit", (req, res) => {
+    //根據動態路由輸入的id，顯示可編輯的餐廳資訊
+    const id = req.params.id
+    return restaurantInfo
+        .findById(id)
+        .lean()
+        .then((restaurant) => res.render("edit", { restaurant }))
+        .catch((error) => console.log(error))
+})
+app.post("/restaurants/:id/edit", (req, res) => {
+    //根據動態路由輸入的id，將編輯後的資料傳至mongoDB並重新導向到show.hbs
+    const id = req.params.id
+    return restaurantInfo
+        .findById(id)
+        .then((restaurant) => {
+            restaurant.name = req.body.name
+            restaurant.name_en = req.body.name_en
+            restaurant.category = req.body.category
+            restaurant.image = req.body.image
+            restaurant.location = req.body.location
+            restaurant.phone = req.body.phone
+            restaurant.google_map = req.body.google_map
+            restaurant.rating = req.body.rating
+            restaurant.description = req.body.description
+            return restaurant.save()
+        })
+        .then(() => res.redirect(`/restaurants/${id}`))
+        .catch((error) => console.log(error))
 })
 
 app.listen(port, () => {
