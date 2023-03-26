@@ -1,0 +1,25 @@
+{
+    "name": "restaurantlist_v2",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "start": "node app.js",
+        "dev": "nodemon app.js",
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "seed": "node models/seeds/todoSeeder.js"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+        "body-parser": "^1.20.2",
+        "express": "^4.17.1",
+        "express-handlebars": "^4.0.2",
+        "mongodb": "^3.5.7",
+        "mongoose": "^7.0.2"
+    },
+    "devDependencies": {
+        "dotenv": "^16.0.3"
+    }
+}
