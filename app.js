@@ -44,6 +44,10 @@ app.get("/", (req, res) => {
             console.log(error)
         })
 })
+app.get("/restaurants/new", (req, res) => {
+    //顯示要新增的餐廳各項內容
+    return res.render("new")
+})
 app.get("/restaurants/:id", (req, res) => {
     //根據動態路由輸入的id，顯示對應的餐廳資訊
     const id = req.params.id
@@ -73,6 +77,22 @@ app.get("/restaurants/:id/edit", (req, res) => {
         .findById(id)
         .lean()
         .then((restaurant) => res.render("edit", { restaurant }))
+        .catch((error) => console.log(error))
+})
+app.post("/restaurants/new", (req, res) => {
+    return restaurantInfo
+        .create({
+            name: req.body.name,
+            name_en: req.body.name_en,
+            category: req.body.category,
+            image: req.body.image,
+            location: req.body.location,
+            phone: req.body.phone,
+            google_map: req.body.google_map,
+            rating: req.body.rating,
+            description: req.body.description,
+        })
+        .then(() => res.redirect("/"))
         .catch((error) => console.log(error))
 })
 app.post("/restaurants/:id/edit", (req, res) => {
