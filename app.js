@@ -59,7 +59,7 @@ app.get("/restaurants/:id", (req, res) => {
 })
 app.get("/search", (req, res) => {
     //藉由輸入的query string，查找對應的餐廳資訊(名字、英文名字跟類別)
-    const keyword = req.query.keyword.toLowerCase()
+    const keyword = req.query.keyword.toLowerCase().trim()
     return restaurantInfo
         .find()
         .lean()

@@ -14,6 +14,7 @@
                         aria-label="Restaurant Name..."
                         value=""
                         aria-describedby="search-button"
+                        required
                     />
                     <div class="input-group-append">
                         <button class="btn btn-major" type="submit" id="search-button"><i class="fas fa-search"></i></button>
@@ -33,7 +34,9 @@
                     {{! 秀出所有餐廳資訊 }}
                     <div>
                         <div class="card mb-1">
-                            <img class="card-img-top" src="{{this.image}}" alt="{{this.name}}" />
+                            <a href="/restaurants/{{this._id}}">
+                                <img class="card-img-top" src="{{this.image}}" alt="{{this.name}}" />
+                            </a>
                             <div class="card-body p-3">
                                 <h6 class="card-title mb-1">{{this.name}}</h6>
                                 <div class="restaurant-category mb-1">
