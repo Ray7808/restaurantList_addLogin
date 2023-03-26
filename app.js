@@ -1,7 +1,8 @@
 //載入套件與檔案
 const express = require("express")
 const exhbs = require("express-handlebars")
-const restaurantInfo = require("./restaurant.json")
+const mongoose = require("mongoose")
+const restaurantInfo = require("./models/restaurantInfo")
 
 const app = express()
 const port = 3000
@@ -11,10 +12,33 @@ app.engine("hbs", exhbs({ defaultLayout: "main", extname: "hbs" }))
 app.set("view engine", "hbs")
 app.use(express.static("public"))
 
+// 僅在非正式環境時，使用dotenv
+if (process.env.NODE_ENV !== "production") {
+    require("dotenv").config()
+}
+
+//連線到mongoDB
+mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+
+//db測試
+const db = mongoose.connection
+db.on("error", () => {
+    console.log("mondodb error!")
+})
+db.once("open", () => {
+    console.log("mongodb connected!")
+})
+
 //設定路由
 app.get("/", (req, res) => {
     //顯示所有餐廳資訊
-    res.render("index", { restaurant: restaurantInfo.results })
+    restaurantInfo
+        .find()
+        .lean()
+        .then((restaurants) => res.render("index", { restaurants }))
+        .catch((error) => {
+            console.log(error)
+        })
 })
 app.get("/restaurants/:id", (req, res) => {
     //根據動態路由輸入的id，顯示對應的餐廳資訊
