@@ -3,6 +3,7 @@ const express = require("express")
 const exhbs = require("express-handlebars")
 const bodyParser = require("body-parser")
 const restaurantInfo = require("./models/restaurantInfo")
+const methodOverride = require("method-override")
 
 require("./config/mongoose")
 
@@ -12,10 +13,10 @@ const port = 3000
 //Template engine
 app.engine("hbs", exhbs({ defaultLayout: "main", extname: "hbs" }))
 app.set("view engine", "hbs")
-app.use(express.static("public"))
 
-//拿到瀏覽器回傳的資料
-app.use(bodyParser.urlencoded({ extended: true }))
+app.use(express.static("public"))
+app.use(bodyParser.urlencoded({ extended: true })) //拿到瀏覽器回傳的資料
+app.use(methodOverride("_method"))
 
 //設定路由
 app.get("/", (req, res) => {
@@ -89,7 +90,7 @@ app.post("/restaurants/new", (req, res) => {
         .then(() => res.redirect("/"))
         .catch((error) => console.log(error))
 })
-app.post("/restaurants/:id/edit", (req, res) => {
+app.put("/restaurants/:id", (req, res) => {
     //根據動態路由輸入的id，將編輯後的資料傳至mongoDB並重新導向到show.hbs
     const id = req.params.id
     return restaurantInfo
@@ -109,7 +110,7 @@ app.post("/restaurants/:id/edit", (req, res) => {
         .then(() => res.redirect(`/restaurants/${id}`))
         .catch((error) => console.log(error))
 })
-app.post("/restaurants/:id/delete", (req, res) => {
+app.delete("/restaurants/:id", (req, res) => {
     //根據動態路由輸入的id，將該資料刪除並重新導向到index.hbs
     const id = req.params.id
     return restaurantInfo
