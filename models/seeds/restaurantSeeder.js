@@ -1,6 +1,6 @@
 const restaurantInfo = require("../restaurantInfo")
 const initialRestaurantInfo = require("../../restaurant.json")
-const db = require("./config/mongoose")
+const db = require("../../config/mongoose")
 
 db.once("open", () => {
     for (let i = 0; i < initialRestaurantInfo.results.length; i++) {
