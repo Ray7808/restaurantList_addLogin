@@ -1,9 +1,10 @@
 //載入套件與檔案
 const express = require("express")
 const exhbs = require("express-handlebars")
-const mongoose = require("mongoose")
 const bodyParser = require("body-parser")
 const restaurantInfo = require("./models/restaurantInfo")
+
+require("./config/mongoose")
 
 const app = express()
 const port = 3000
@@ -13,25 +14,8 @@ app.engine("hbs", exhbs({ defaultLayout: "main", extname: "hbs" }))
 app.set("view engine", "hbs")
 app.use(express.static("public"))
 
-// 僅在非正式環境時，使用dotenv
-if (process.env.NODE_ENV !== "production") {
-    require("dotenv").config()
-}
-
-//連線到mongoDB
-mongoose.connect(process.env.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-
 //拿到瀏覽器回傳的資料
 app.use(bodyParser.urlencoded({ extended: true }))
-
-//db測試
-const db = mongoose.connection
-db.on("error", () => {
-    console.log("mondodb error!")
-})
-db.once("open", () => {
-    console.log("mongodb connected!")
-})
 
 //設定路由
 app.get("/", (req, res) => {
