@@ -1,4 +1,4 @@
-const mongoose = require("mongoose")
+const mongoose = require('mongoose')
 
 const restaurantSchema = new mongoose.Schema({
     //設置餐廳的各個資訊
@@ -40,4 +40,4 @@ const restaurantSchema = new mongoose.Schema({
     },
 })
 
-module.exports = mongoose.model("restaurantInfo", restaurantSchema)
+module.exports = mongoose.model('restaurantInfo', restaurantSchema)

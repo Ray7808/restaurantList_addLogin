@@ -1,8 +1,8 @@
-const restaurantInfo = require("../restaurantInfo")
-const initialRestaurantInfo = require("../../restaurant.json")
-const db = require("../../config/mongoose")
+const restaurantInfo = require('../restaurantInfo')
+const initialRestaurantInfo = require('../../restaurant.json')
+const db = require('../../config/mongoose')
 
-db.once("open", () => {
+db.once('open', () => {
     for (let i = 0; i < initialRestaurantInfo.results.length; i++) {
         restaurantInfo.create({
             name: `${initialRestaurantInfo.results[i].name}`,
@@ -16,5 +16,5 @@ db.once("open", () => {
             description: `${initialRestaurantInfo.results[i].description}`,
         })
     }
-    console.log("done!")
+    console.log('done!')
 })

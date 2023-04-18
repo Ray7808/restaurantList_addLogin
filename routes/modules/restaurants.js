@@ -1,39 +1,39 @@
-const express = require("express")
+const express = require('express')
 const router = express.Router()
-const restaurantInfo = require("../../models/restaurantInfo")
+const restaurantInfo = require('../../models/restaurantInfo')
 
-router.get("/new", (req, res) => {
+router.get('/new', (req, res) => {
     //顯示要新增的餐廳各項內容
-    return res.render("new")
+    return res.render('new')
 })
-router.get("/:id", (req, res) => {
+router.get('/:id', (req, res) => {
     //根據動態路由輸入的id，顯示對應的餐廳資訊
     const id = req.params.id
     return restaurantInfo
         .findById(id)
         .lean()
-        .then((restaurant) => res.render("show", { restaurant }))
+        .then((restaurant) => res.render('show', { restaurant }))
         .catch((error) => console.log(error))
 })
-router.get("/:id/edit", (req, res) => {
+router.get('/:id/edit', (req, res) => {
     //根據動態路由輸入的id，顯示可編輯的餐廳資訊
     const id = req.params.id
     return restaurantInfo
         .findById(id)
         .lean()
-        .then((restaurant) => res.render("edit", { restaurant }))
+        .then((restaurant) => res.render('edit', { restaurant }))
         .catch((error) => console.log(error))
 })
-router.get("/:id/delete", (req, res) => {
+router.get('/:id/delete', (req, res) => {
     //根據動態路由輸入的id，顯示可編輯的餐廳資訊
     const id = req.params.id
     return restaurantInfo
         .findById(id)
         .lean()
-        .then((restaurant) => res.render("delete", { restaurant }))
+        .then((restaurant) => res.render('delete', { restaurant }))
         .catch((error) => console.log(error))
 })
-router.post("/new", (req, res) => {
+router.post('/new', (req, res) => {
     return restaurantInfo
         .create({
             name: req.body.name,
@@ -46,10 +46,10 @@ router.post("/new", (req, res) => {
             rating: req.body.rating,
             description: req.body.description,
         })
-        .then(() => res.redirect("/"))
+        .then(() => res.redirect('/'))
         .catch((error) => console.log(error))
 })
-router.put("/:id", (req, res) => {
+router.put('/:id', (req, res) => {
     //根據動態路由輸入的id，將編輯後的資料傳至mongoDB並重新導向到show.hbs
     const id = req.params.id
     return restaurantInfo
@@ -69,13 +69,13 @@ router.put("/:id", (req, res) => {
         .then(() => res.redirect(`/restaurants/${id}`))
         .catch((error) => console.log(error))
 })
-router.delete("/:id", (req, res) => {
+router.delete('/:id', (req, res) => {
     //根據動態路由輸入的id，將該資料刪除並重新導向到index.hbs
     const id = req.params.id
     return restaurantInfo
         .findById(id)
         .then((restaurant) => restaurant.deleteOne())
-        .then(() => res.redirect("/"))
+        .then(() => res.redirect('/'))
         .catch((error) => console.log(error))
 })
 

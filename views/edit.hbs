@@ -1,48 +1,121 @@
 {{! 展示選取的餐廳詳細資料 }}
-<h1 class="mb-1 restaurant-show-title">{{restaurant.name}}</h1>
-<div class="container">
-    <div class="row">
-        <div class="col-12 col-md-10 mx-auto">
-            <form action="/restaurants/{{restaurant._id}}?_method=PUT" method="POST">
-                <div class="mb-3">
-                    <label for="name" class="form-label">餐廳名稱</label>
-                    <input type="text" class="form-control" id="name" name="name" placeholder="請輸入欲修改的餐廳名稱" value="{{restaurant.name}}" required />
+<h1 class='mb-1 restaurant-show-title'>{{restaurant.name}}</h1>
+<div class='container'>
+    <div class='row'>
+        <div class='col-12 col-md-10 mx-auto'>
+            <form action='/restaurants/{{restaurant._id}}?_method=PUT' method='POST'>
+                <div class='mb-3'>
+                    <label for='name' class='form-label'>餐廳名稱</label>
+                    <input
+                        type='text'
+                        class='form-control'
+                        id='name'
+                        name='name'
+                        placeholder='請輸入欲修改的餐廳名稱'
+                        value='{{restaurant.name}}'
+                        required
+                    />
                 </div>
-                <div class="mb-3">
-                    <label for="name_en" class="form-label">餐廳名稱(英文)</label>
-                    <input type="text" class="form-control" id="name_en" name="name_en" placeholder="請輸入欲修改的餐廳名稱(英文)" value="{{restaurant.name_en}}" required />
+                <div class='mb-3'>
+                    <label for='name_en' class='form-label'>餐廳名稱(英文)</label>
+                    <input
+                        type='text'
+                        class='form-control'
+                        id='name_en'
+                        name='name_en'
+                        placeholder='請輸入欲修改的餐廳名稱(英文)'
+                        value='{{restaurant.name_en}}'
+                        required
+                    />
                 </div>
-                <div class="mb-3">
-                    <label for="category" class="form-label">類別</label>
-                    <input type="text" class="form-control" id="category" name="category" placeholder="請輸入欲修改的類別" value="{{restaurant.category}}" required />
+                <div class='mb-3'>
+                    <label for='category' class='form-label'>類別</label>
+                    <input
+                        type='text'
+                        class='form-control'
+                        id='category'
+                        name='category'
+                        placeholder='請輸入欲修改的類別'
+                        value='{{restaurant.category}}'
+                        required
+                    />
                 </div>
-                <div class="mb-3">
-                    <label for="image" class="form-label">圖片位址</label>
-                    <input type="text" class="form-control" id="image" name="image" placeholder="請輸入欲修改的圖片位址" value="{{restaurant.image}}" required />
+                <div class='mb-3'>
+                    <label for='image' class='form-label'>圖片位址</label>
+                    <input
+                        type='text'
+                        class='form-control'
+                        id='image'
+                        name='image'
+                        placeholder='請輸入欲修改的圖片位址'
+                        value='{{restaurant.image}}'
+                        required
+                    />
                 </div>
-                <div class="mb-3">
-                    <label for="location" class="form-label">地址</label>
-                    <input type="text" class="form-control" id="location" name="location" placeholder="請輸入欲修改的地址" value="{{restaurant.location}}" required />
+                <div class='mb-3'>
+                    <label for='location' class='form-label'>地址</label>
+                    <input
+                        type='text'
+                        class='form-control'
+                        id='location'
+                        name='location'
+                        placeholder='請輸入欲修改的地址'
+                        value='{{restaurant.location}}'
+                        required
+                    />
                 </div>
-                <div class="mb-3">
-                    <label for="phone" class="form-label">電話</label>
-                    <input type="text" class="form-control" id="phone" name="phone" placeholder="請輸入欲修改的電話" value="{{restaurant.phone}}" required />
+                <div class='mb-3'>
+                    <label for='phone' class='form-label'>電話</label>
+                    <input
+                        type='text'
+                        class='form-control'
+                        id='phone'
+                        name='phone'
+                        placeholder='請輸入欲修改的電話'
+                        value='{{restaurant.phone}}'
+                        required
+                    />
                 </div>
-                <div class="mb-3">
-                    <label for="google_map" class="form-label">Google map連結</label>
-                    <input type="text" class="form-control" id="google_map" name="google_map" placeholder="請輸入欲修改的Google map連結" value="{{restaurant.google_map}}" required />
+                <div class='mb-3'>
+                    <label for='google_map' class='form-label'>Google map連結</label>
+                    <input
+                        type='text'
+                        class='form-control'
+                        id='google_map'
+                        name='google_map'
+                        placeholder='請輸入欲修改的Google map連結'
+                        value='{{restaurant.google_map}}'
+                        required
+                    />
                 </div>
-                <div class="mb-3">
-                    <label for="rating" class="form-label">評分</label>
-                    <input type="number" class="form-control" id="rating" name="rating" placeholder="請輸入欲修改的評分" value={{restaurant.rating}} required />
+                <div class='mb-3'>
+                    <label for='rating' class='form-label'>評分</label>
+                    <input
+                        type='number'
+                        class='form-control'
+                        id='rating'
+                        name='rating'
+                        placeholder='請輸入欲修改的評分'
+                        value={{restaurant.rating}}
+                        required
+                    />
                 </div>
-                <div class="mb-3">
-                    <label for="description" class="form-label">描述</label>
-                    <input type="text" class="form-control" id="description" name="description" cols="12" placeholder="請輸入欲修改的描述" value="{{restaurant.description}}" required />
+                <div class='mb-3'>
+                    <label for='description' class='form-label'>描述</label>
+                    <input
+                        type='text'
+                        class='form-control'
+                        id='description'
+                        name='description'
+                        cols='12'
+                        placeholder='請輸入欲修改的描述'
+                        value='{{restaurant.description}}'
+                        required
+                    />
                 </div>
-                <div class="d-flex justify-content-end">
-                    <a href="/" class="btn btn-outline-dark m-2 p-2">回上一頁</a>
-                    <button type="submit" class="btn btn-outline-dark m-2 p-2">儲存修改</button>
+                <div class='d-flex justify-content-end'>
+                    <a href='/' class='btn btn-outline-dark m-2 p-2'>回上一頁</a>
+                    <button type='submit' class='btn btn-outline-dark m-2 p-2'>儲存修改</button>
                 </div>
             </form>
 
