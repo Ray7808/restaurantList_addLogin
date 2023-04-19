@@ -4,6 +4,7 @@ const exhbs = require('express-handlebars')
 const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
 const routes = require('./routes') // 預設會抓index.js
+const session = require('express-session')
 
 require('./config/mongoose')
 
@@ -18,6 +19,13 @@ app.set('view engine', 'hbs')
 app.use(express.static('public'))
 app.use(bodyParser.urlencoded({ extended: true })) //拿到瀏覽器回傳的資料
 app.use(methodOverride('_method'))
+app.use(
+    session({
+        secret: 'ThisOsMySecret', //可隨機
+        resave: false, // 不會隨每次跟使用者互動後更新session
+        saveUninitialized: true, // 強制將未初始化的session存回session store，未初始化表示這session是新的且未被修改過
+    })
+)
 app.use(routes)
 
 app.listen(port, () => {
