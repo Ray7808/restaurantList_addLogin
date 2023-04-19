@@ -5,6 +5,7 @@ const bodyParser = require('body-parser')
 const methodOverride = require('method-override')
 const routes = require('./routes') // 預設會抓index.js
 const session = require('express-session')
+const usePassport = require('./config/passport') //要寫在express-session之後(要載入設定檔)
 
 require('./config/mongoose')
 
@@ -26,6 +27,7 @@ app.use(
         saveUninitialized: true, // 強制將未初始化的session存回session store，未初始化表示這session是新的且未被修改過
     })
 )
+usePassport(app) // 呼叫passport函式並載入app，要寫在路由之前
 app.use(routes)
 
 app.listen(port, () => {
