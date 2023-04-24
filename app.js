@@ -28,6 +28,14 @@ app.use(
     })
 )
 usePassport(app) // 呼叫passport函式並載入app，要寫在路由之前
+
+app.use((req, res, next) => {
+    //將是否驗證跟user資訊輸入至本地變數locals
+    res.locals.isAuthenticated = req.isAuthenticated()
+    res.locals.user = req.user
+    next()
+})
+
 app.use(routes)
 
 app.listen(port, () => {
