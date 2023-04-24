@@ -11,7 +11,7 @@ const flash = require('connect-flash')
 require('./config/mongoose')
 
 const app = express()
-const port = 3000
+const port = process.env.PORT || 3000
 
 //Template engine
 app.engine('hbs', exhbs({ defaultLayout: 'main', extname: 'hbs' }))
@@ -23,7 +23,7 @@ app.use(bodyParser.urlencoded({ extended: true })) //拿到瀏覽器回傳的資
 app.use(methodOverride('_method'))
 app.use(
     session({
-        secret: 'ThisOsMySecret', //可隨機
+        secret: process.env.SESSION_SECRET, //可隨機
         resave: false, // 不會隨每次跟使用者互動後更新session
         saveUninitialized: true, // 強制將未初始化的session存回session store，未初始化表示這session是新的且未被修改過
     })
