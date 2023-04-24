@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const Schema = mongoose.Schema
 
 const restaurantSchema = new mongoose.Schema({
     //設置餐廳的各個資訊
@@ -37,6 +38,12 @@ const restaurantSchema = new mongoose.Schema({
     description: {
         type: String,
         required: true,
+    },
+    userId: {
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        required: true,
+        index: true,
     },
 })
 

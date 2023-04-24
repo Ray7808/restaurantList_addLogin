@@ -8,32 +8,37 @@ router.get('/new', (req, res) => {
 })
 router.get('/:id', (req, res) => {
     //根據動態路由輸入的id，顯示對應的餐廳資訊
-    const id = req.params.id
+    const _id = req.params.id
+    const userId = req.user._id
     return restaurantInfo
-        .findById(id)
+        .findOne({ _id, userId })
         .lean()
         .then((restaurant) => res.render('show', { restaurant }))
         .catch((error) => console.log(error))
 })
 router.get('/:id/edit', (req, res) => {
     //根據動態路由輸入的id，顯示可編輯的餐廳資訊
-    const id = req.params.id
+    const userId = req.user._id
+    const _id = req.params.id
     return restaurantInfo
-        .findById(id)
+        .findOne({ _id, userId })
         .lean()
         .then((restaurant) => res.render('edit', { restaurant }))
         .catch((error) => console.log(error))
 })
 router.get('/:id/delete', (req, res) => {
     //根據動態路由輸入的id，顯示可編輯的餐廳資訊
-    const id = req.params.id
+    const userId = req.user._id
+    const _id = req.params.id
     return restaurantInfo
-        .findById(id)
+        .findOne({ _id, userId })
         .lean()
         .then((restaurant) => res.render('delete', { restaurant }))
         .catch((error) => console.log(error))
 })
 router.post('/new', (req, res) => {
+    const userId = req.user._id
+
     return restaurantInfo
         .create({
             name: req.body.name,
@@ -45,15 +50,17 @@ router.post('/new', (req, res) => {
             google_map: req.body.google_map,
             rating: req.body.rating,
             description: req.body.description,
+            userId,
         })
         .then(() => res.redirect('/'))
         .catch((error) => console.log(error))
 })
 router.put('/:id', (req, res) => {
     //根據動態路由輸入的id，將編輯後的資料傳至mongoDB並重新導向到show.hbs
-    const id = req.params.id
+    const userId = req.user._id
+    const _id = req.params.id
     return restaurantInfo
-        .findById(id)
+        .findOne({ _id, userId })
         .then((restaurant) => {
             restaurant.name = req.body.name
             restaurant.name_en = req.body.name_en
@@ -66,14 +73,15 @@ router.put('/:id', (req, res) => {
             restaurant.description = req.body.description
             return restaurant.save()
         })
-        .then(() => res.redirect(`/restaurants/${id}`))
+        .then(() => res.redirect(`/restaurants/${_id}`))
         .catch((error) => console.log(error))
 })
 router.delete('/:id', (req, res) => {
     //根據動態路由輸入的id，將該資料刪除並重新導向到index.hbs
-    const id = req.params.id
+    const userId = req.user._id
+    const _id = req.params.id
     return restaurantInfo
-        .findById(id)
+        .findOne({ _id, userId })
         .then((restaurant) => restaurant.deleteOne())
         .then(() => res.redirect('/'))
         .catch((error) => console.log(error))
