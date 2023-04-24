@@ -6,6 +6,7 @@ const methodOverride = require('method-override')
 const routes = require('./routes') // 預設會抓index.js
 const session = require('express-session')
 const usePassport = require('./config/passport') //要寫在express-session之後(要載入設定檔)
+const flash = require('connect-flash')
 
 require('./config/mongoose')
 
@@ -29,10 +30,14 @@ app.use(
 )
 usePassport(app) // 呼叫passport函式並載入app，要寫在路由之前
 
+app.use(flash())
+
 app.use((req, res, next) => {
     //將是否驗證跟user資訊輸入至本地變數locals
     res.locals.isAuthenticated = req.isAuthenticated()
     res.locals.user = req.user
+    res.locals.success_msg = req.flash('success_msg') // 設定 success_msg 訊息
+    res.locals.warning_msg = req.flash('warning_msg') // 設定 warning_msg 訊息
     next()
 })
 
