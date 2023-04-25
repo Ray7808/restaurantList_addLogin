@@ -1,6 +1,7 @@
-# 餐廳清單\_v3
+# 餐廳清單\_具登入登出功能
 
 此專案主要透過 mongoDB 與 Express 建立餐廳資料與 API，進行 CRUD 與顯示、搜尋餐廳名稱及詳細資訊。
+此外，新增 bcrypt 加密及雜湊提高密碼安全性，並使用 passport 套件新增本地登入及 Facebook 登入。
 
 ## 產品功能
 
@@ -8,6 +9,9 @@
 -   利用 express.Router()簡化路由設定
 -   加入排序(sorting)功能，可以更方便查找想要的餐廳資料
 -   參考 RESTful 設計，利用 method-override 建立 GET,POST,PUT,DELETE 使路由帶有語義
+-   透過 connect-flash，當註冊時未輸入正確內容或登出時，顯示對應訊息
+-   利用 passport 新增本地及 facebook 登入
+-   使用 bcrypt 加鹽及雜湊增加密碼安全性
 
 ## 專案畫面
 
@@ -53,3 +57,8 @@
 -   mongodb
 -   mongoose
 -   method-override
+-   connect-flash
+-   bcryptjs
+-   passport
+-   passport-facebook
+-   passport-local

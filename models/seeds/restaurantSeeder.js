@@ -95,7 +95,7 @@ db.once('open', () => {
                                 userId: userId,
                             })
                         )
-                    ) 
+                    )
                 })
                 .then(() => {
                     console.log('done.')
