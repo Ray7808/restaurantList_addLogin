@@ -19,4 +19,4 @@ router.get(
     // 給facebook使用的路由
 )
 
-http: module.exports = router
+module.exports = router
